@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chaves do Euromilhões</title>
+    <style>
+
+
+      body {
+        margin:0px;
+        padding:0px;
+      }
+
+      div,h3{
+        margin:0px;
+        padding:0px;
+      }
+
+      .chave {
+        background-color: #FFBB88;
+      }
+    #header {
+      background-color:lightblue;
+    }
+    #control {
+      background-color: rgb(255,255,100);
+    }
+
+    div.chave ul,li {display : inline-block;}
+
+    ul.numbers li {background-color: lightblue}
+    ul.stars li {background-color: pink}
+    div.chave ul li {
+      width : 20px;
+      text-align : center;
+      border-radius: 10px;
+    }
+
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <h3>Gerador de Chaves do Euromilhões</h3>
+    </div>
+    <div id="control">
+      <button id="bnew" onclick="hide();">Nova Chave</button>
+      <button id="clear"> Limpar </button>
+    </div>
+    <div id="content">
+      <div class="chave">
+        <ul class="numbers">
+          <li>4</li>
+          <li>6</li>
+          <li>19</li>
+          <li>23</li>
+          <li style="color:blue;">45</li>
+        </ul>
+        <ul class="stars">
+          <li>4</li>
+          <li>7</li>
+        </ul>
+      </div>
+    </div>
+    <div id="footer">
+      <p> &copy; Pedro Miguel Moreira 2016
+    </div>
+  </body>
+  <script type="text/javascript">
+    function hide() {
+      var elemento = document.getElementById("content");
+      elemento.style.visibility = "hidden";
+    }
+    document.getElementById("clear").onclick =  function() {
+      document.getElementById("content").style.visibility = "visible";
+    }
+
+    const MINN = 1;
+    const MAXN = 50;
+
+    const MINS = 1;
+    const MAXS = 11;
+
+    const NUMN = 5;
+    const NUMS = 2;
+
+
+    var bagOfNumbers = Array();
+    var bagOfStars = Array();
+
+    var keyNumbers = Array();
+    var keyStars = Array();
+
+    console.log("bagOfNumbers: ",bagOfNumbers);
+    console.log("bagOfStars: ",bagOfStars);
+
+    // preencher bagOfNumbers
+    for( n=MINN ; n <= MAXN; n++) {
+      bagOfNumbers.push(n);
+    }
+    // preencher bagOfStars
+    for( s=MINS ; s <= MAXS; s++) {
+      bagOfStars.push(s);
+    }
+    console.log("bagOfNumbers: ",bagOfNumbers);
+    console.log("bagOfStars: ",bagOfStars);
+
+    // extrair numeros
+    for (n = 0; n < NUMN; n++) {
+      var idx = Math.floor(Math.random() *  bagOfNumbers.length);
+      extract = bagOfNumbers.splice(idx,1);
+      //console.log(idx);
+      //console.log(bagOfNumbers);
+      keyNumbers.push(extract[0]);
+      //console.log(keyNumbers);
+    }
+    // extrair numeros
+    for (n = 0; n < NUMS; n++) {
+      var idx = Math.floor(Math.random() *  bagOfStars.length);
+      extract = bagOfStars.splice(idx,1);
+      keyStars.push(extract[0]);
+    }
+console.log(keyNumbers);
+console.log(keyStars);
+
+
+  </script>
+</html>
