@@ -66,37 +66,46 @@
     </div>
   </body>
   <script type="text/javascript">
-    function hide() {
-      var elemento = document.getElementById("content");
-      elemento.style.visibility = "hidden";
-    }
-    document.getElementById("clear").onclick =  function() {
-      document.getElementById("content").style.visibility = "visible";
-    }
 
-    const MINN = 1;
-    const MAXN = 50;
+  function hide() {
+    var elemento = document.getElementById("content");
+    elemento.style.visibility = "hidden";
+  }
+  document.getElementById("clear").onclick =  function() {
+    document.getElementById("content").style.visibility = "visible";
+  }
 
-    const MINS = 1;
-    const MAXS = 11;
+  const MINN = 1;
+  const MAXN = 50;
 
-    const NUMN = 5;
-    const NUMS = 2;
+  const MINS = 1;
+  const MAXS = 11;
+
+  const NUMN = 5;
+  const NUMS = 2;
+
+  var bagOfNumbers = Array();
+  var bagOfStars = Array();
+
+  var keyNumbers = Array();
+  var keyStars = Array();
 
 
-    var bagOfNumbers = Array();
-    var bagOfStars = Array();
+    function geraChave() {
 
-    var keyNumbers = Array();
-    var keyStars = Array();
+      bagOfNumbers = Array();
+      bagOfStars = Array();
 
-    console.log("bagOfNumbers: ",bagOfNumbers);
-    console.log("bagOfStars: ",bagOfStars);
+      keyNumbers = Array();
+      keyStars = Array();
 
-    // preencher bagOfNumbers
-    for( n=MINN ; n <= MAXN; n++) {
-      bagOfNumbers.push(n);
-    }
+      console.log("bagOfNumbers: ",bagOfNumbers);
+      console.log("bagOfStars: ",bagOfStars);
+
+      // preencher bagOfNumbers
+      for( n=MINN ; n <= MAXN; n++) {
+        bagOfNumbers.push(n);
+      }
     // preencher bagOfStars
     for( s=MINS ; s <= MAXS; s++) {
       bagOfStars.push(s);
@@ -113,15 +122,16 @@
       keyNumbers.push(extract[0]);
       //console.log(keyNumbers);
     }
-    // extrair numeros
+    // extrair estrelas
     for (n = 0; n < NUMS; n++) {
       var idx = Math.floor(Math.random() *  bagOfStars.length);
       extract = bagOfStars.splice(idx,1);
       keyStars.push(extract[0]);
     }
+
 console.log(keyNumbers);
 console.log(keyStars);
-
+}
 
   </script>
 </html>
