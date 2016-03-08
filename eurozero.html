@@ -43,7 +43,7 @@
       <h3>Gerador de Chaves do Euromilhões</h3>
     </div>
     <div id="control">
-      <button id="bnew" onclick="hide();">Nova Chave</button>
+      <button id="bnew" onclick="fazChave();">Nova Chave</button>
       <button id="clear"> Limpar </button>
     </div>
     <div id="content">
@@ -90,6 +90,40 @@
   var keyNumbers = Array();
   var keyStars = Array();
 
+
+  function fazChave() {
+    geraChave();
+    mostraChave(keyNumbers,keyStars);
+  }
+
+    function mostraChave(arrNumbers,arrStars) {
+      var divcontent = document.getElementById("content");
+
+      var divchave = document.createElement("div");
+
+      var ulNumbers = document.createElement("ul");
+      ulNumbers.setAttribute("class","numbers");
+      for (var i = 0; i < arrNumbers.length; i++) {
+        var novoli = document.createElement("li");
+        novoli.innerHTML = arrNumbers[i];
+        ulNumbers.appendChild(novoli);
+      }
+
+
+      var ulStars = document.createElement("ul");
+      ulStars.setAttribute("class","stars");
+      for (var i = 0; i < arrStars.length; i++) {
+        var novoli = document.createElement("li");
+        novoli.innerHTML = arrStars[i];
+        ulStars.appendChild(novoli);
+      }
+
+      divchave.appendChild(ulNumbers);
+      divchave.appendChild(ulStars);
+      divchave.setAttribute("class","chave");
+      divcontent.appendChild(divchave);
+
+    }
 
     function geraChave() {
 
