@@ -31,9 +31,12 @@
     ul.numbers li {background-color: lightblue}
     ul.stars li {background-color: pink}
     div.chave ul li {
-      width : 20px;
+      font-size: 30px;
+      width : 40px;
+      height : 40px;
       text-align : center;
-      border-radius: 10px;
+      border-radius: 20px;
+      margin: 10px;
     }
 
     </style>
@@ -75,96 +78,153 @@
     document.getElementById("content").style.visibility = "visible";
   }
 
-  const MINN = 1;
-  const MAXN = 50;
+  const MINN = 1;               // número mais pequeno (1)
+  const MAXN = 50;              // maior número (50)
 
-  const MINS = 1;
-  const MAXS = 11;
+  const MINS = 1;               // estrela mais pequena (1)
+  const MAXS = 11;              // maior estrela (11)
 
-  const NUMN = 5;
-  const NUMS = 2;
-
-  var bagOfNumbers = Array();
-  var bagOfStars = Array();
-
-  var keyNumbers = Array();
-  var keyStars = Array();
+  const NUMN = 5;               // número de números
+  const NUMS = 2;               // número de estrelas
 
 
+
+  var bagOfNumbers = Array();   // pote dos números  (vazio)
+  var bagOfStars   = Array();   // pote das estrelas (vazio)
+
+  var keyNumbers   = Array();   // chave dos números (vazio)
+  var keyStars     = Array();   // chave das estrelas(vazio)
+
+  /**@function fazChave
+   *gera uma chave e insere-a na página
+   */
   function fazChave() {
     geraChave();
     mostraChave(keyNumbers,keyStars);
   }
 
+
+    /**@function mostraChave
+     *dada uma chave através de dois arrays insere-a na página
+     *@param {number[]} arrNumbers Array com números da chave
+     *@param {number[]} arrStars Array com estrelas da chave
+     */
     function mostraChave(arrNumbers,arrStars) {
+
+      // o div identificado como 'content'
       var divcontent = document.getElementById("content");
+      // cria um novo div para a chave (dibchave)
+      var divchave   = document.createElement("div");
+      // com a classe 'chave'
+      divchave.setAttribute("class","chave");
 
-      var divchave = document.createElement("div");
 
+      // cria uma lista para os números
       var ulNumbers = document.createElement("ul");
+      // e cria atributo 'class' com valor 'numbers'
       ulNumbers.setAttribute("class","numbers");
+
+      // para cada elemento da chave dos números
       for (var i = 0; i < arrNumbers.length; i++) {
+        // cria um elemento li (item de lista)
         var novoli = document.createElement("li");
+        // com conteúdo igual ao valor da chave
         novoli.innerHTML = arrNumbers[i];
+        // insere-o como filho da lista de numeros
         ulNumbers.appendChild(novoli);
       }
 
-
+      // cria uma lista para as estrelas
       var ulStars = document.createElement("ul");
+      // para cada elemento da chave das estrelas
       ulStars.setAttribute("class","stars");
+
+      // para cada elemento da chave das estrelas
       for (var i = 0; i < arrStars.length; i++) {
+        // cria um elemento li (item de lista)
         var novoli = document.createElement("li");
+        // com conteúdo igual ao valor da chave
         novoli.innerHTML = arrStars[i];
+        // insere-o como filho da lista de estrelas
         ulStars.appendChild(novoli);
       }
 
+      //insere a lista de números como filho do div 'chave'
       divchave.appendChild(ulNumbers);
+      //insere a lista de estrelas como filho do div 'chave'
       divchave.appendChild(ulStars);
-      divchave.setAttribute("class","chave");
+
+      //insere o div da chave como filho do div 'content'
       divcontent.appendChild(divchave);
 
     }
-
+    /**@function geraChave()
+     *gera uma chave que fica nos arrays keyNumbers e keyStars
+     */
     function geraChave() {
 
+      // inicia o pote dos numeros com array vazio
       bagOfNumbers = Array();
+      // inicia pote das estrelas com array vazio
       bagOfStars = Array();
 
+      // inicia chave de números com array vazio
       keyNumbers = Array();
+      // inicia chave de estrelas com array vazio
       keyStars = Array();
 
+      // debug na consola (devem estar vazios)
       console.log("bagOfNumbers: ",bagOfNumbers);
       console.log("bagOfStars: ",bagOfStars);
 
-      // preencher bagOfNumbers
+      // preencher bagOfNumbers - pote dos números de 1 a 50
       for( n=MINN ; n <= MAXN; n++) {
         bagOfNumbers.push(n);
       }
-    // preencher bagOfStars
+    // preencher bagOfStars - pote das estrelas de 1 a 11
     for( s=MINS ; s <= MAXS; s++) {
       bagOfStars.push(s);
     }
+
+    // debug na consola (devem estar preenchidos com todos números/estrelas)
     console.log("bagOfNumbers: ",bagOfNumbers);
     console.log("bagOfStars: ",bagOfStars);
 
     // extrair numeros
+    // fazer tantas vezes quantos os numeros a ter na chave (5)
     for (n = 0; n < NUMN; n++) {
+      // gerar indice aleatório inteiro entre 0 e tamanho do array-1
       var idx = Math.floor(Math.random() *  bagOfNumbers.length);
+      console.log("extrair indice: "+ idx + " valor: "+ bagOfNumbers[idx]);
+      // retirar elemento do índice aleatório
       extract = bagOfNumbers.splice(idx,1);
-      //console.log(idx);
-      //console.log(bagOfNumbers);
+      console.log("pote dos números : "+ bagOfNumbers)
+      // inserir elemento extraído na chave
       keyNumbers.push(extract[0]);
-      //console.log(keyNumbers);
+      console.log("a construir KeyNumbers :" + keyNumbers);
     }
-    // extrair estrelas
+
+
+    // extrair numeros
+    // fazer tantas vezes quantos as estrelas a ter na chave (2)
     for (n = 0; n < NUMS; n++) {
       var idx = Math.floor(Math.random() *  bagOfStars.length);
       extract = bagOfStars.splice(idx,1);
       keyStars.push(extract[0]);
     }
 
-console.log(keyNumbers);
-console.log(keyStars);
+    console.log("chave números antes ordenar - keyNumbers: "+ keyNumbers);
+    console.log("chave estrelas antes ordenar - keyStars: "+ keyStars);
+
+    keyNumbers.sort(compare);
+    keyStars.sort(compare);
+
+    function compare(a,b) {
+      return a-b; // devolve (negativo) se a<b, (0) se a==b, e positivo se a>b
+    }
+
+    console.log("chave números final - keyNumbers: "+ keyNumbers);
+    console.log("chave estrelas final - keyStars: "+ keyStars);
 }
 
   </script>
